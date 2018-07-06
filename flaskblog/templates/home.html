@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% block content %}
+  {% for post in posts %}
+    <article class="media content-section">
+      <img src="{{ url_for('static',filename='profile_pics/' + post.author.image_file) }}" class="rounded-circle article-img">
+      <div class="media-body">
+        <div class="article-metadata">
+          <!--  obezbediti da kada se pritisne na neciji username, da korisnik bude prebacen
+                na stranicu korisnika kojeg je izabrao
+          -->
+          <a class="mr-2" href="{{url_for('user_page',username=post.author.username)}}">{{ post.author.username }}</a> 
+          <small class="text-muted">{{ post.date_posted.strftime('%d-%m-%Y') }}</small>
+        </div>
+        <h2><a class="article-title" href="{{ url_for('post',post_id=post.id) }}">{{ post.title }}</a></h2>
+        <p class="article-content">{{ post.content }}</p>
+      </div>
+    </article>
+  {% endfor %}
+{% endblock content %}

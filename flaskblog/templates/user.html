@@ -1,0 +1,28 @@
+{% extends "layout.html" %} {% block content %}
+<div class="content-section">
+    <!-- enctype="multipart/form-data" je obavezno staviti -->
+    <form action="" enctype="multipart/form-data">
+        <fieldset class="form-group container">
+            <legend class="border-bottom mb-4 text-center">Account Info</legend>
+                <img class="rounded-circle account-img mx-auto d-block" src="{{image_file}}" alt="default.jpg">
+            <div>
+                <a href="#"><h2 class="text-primary text-center">{{ user.username }}</h2></a>
+                <p class="text-muted text-center">{{user.email}}</p>
+            </div>
+        </fieldset>
+    </form>
+    {% if posts %} {% for post in posts %}
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+                <small class="text-muted m-1">{{ post.date_posted.strftime('%d-%m-%Y') }}</small>
+            </div>
+            <h2>
+                <a class="article-title text-info" href="{{ url_for('post',post_id=post.id) }}">{{ post.title }}</a>
+            </h2>
+            <p class="article-content">{{ post.content }}</p>
+        </div>
+    </article>
+    {% endfor %} {% endif %}
+</div>
+{% endblock content %}
