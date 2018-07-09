@@ -47,8 +47,9 @@
   </form>
 </div>
 <div>
-  {% if posts %} {% for post in posts %}
-  <h2 class="text-secondary">{{ current_user.username}}'s Posts</h2>
+  {% if posts %}
+  <h2 class="text-secondary">Your Posts ({{posts.total}})</h2>
+  {% for post in posts.items %}
   <article class="media content-section">
     <img src="{{ url_for('static',filename='profile_pics/' + post.author.image_file) }}" class="rounded-circle article-img">
     <div class="media-body">
@@ -62,10 +63,11 @@
       <p class="article-content">{{ post.content }}</p>
     </div>
   </article>
-  {% endfor %} 
-  {% else %}
-  <h2>You don't have created posts yet. <a class="btn btn-outline-primary btn-sm m-1 float-right" href="{{url_for('new_post')}}">Create New?</a></h2>
-    
+  {% endfor %} {% else %}
+  <h2>You don't have created posts yet.
+    <a class="btn btn-outline-primary btn-sm m-1 float-right" href="{{url_for('new_post')}}">Create New?</a>
+  </h2>
+
   {% endif %}
 </div>
 {% endblock content %}

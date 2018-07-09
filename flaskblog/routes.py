@@ -12,8 +12,12 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route("/")
 @app.route("/home")
 def home():
-    data = Post.query.all()
-    return render_template('home.html',posts=data,title='Home')
+    #posts = Post.query.paginate(),Post.query.paginate(per_page=5,page=2) items , to see attributes dir(posts)
+    #posts = Post.query.all() #na ovaj nacin dobijamo sve postove
+    page = request.args.get('page',1,type=int)#type int will raise ValueError if sb enters not int
+    #Post.query.order_by(Post.date_posted.desc()) sortira po odredjenom argumentu desc() descending
+    posts = Post.query.order_by(Post.date_posted.desc()).paginate(page=page,per_page=5) #proveru u browseru vrsimo unosom npr: localhost:5000/?page=3 
+    return render_template('home.html',posts=posts,title='Home')
 
 
 @app.route("/about")
@@ -83,13 +87,12 @@ def account():
         db.session.commit()
         flash('Your account has been updated!', 'success')
         return redirect(url_for('account'))
-    elif request.method == 'GET':
-        form.username.data = current_user.username
-        form.email.data = current_user.email
-        posts = Post.query.filter_by(author=current_user).all()
+    #elif request.method == 'GET':
+    form.username.data = current_user.username
+    form.email.data = current_user.email
+    posts = Post.query.filter_by(author=current_user).paginate()
     image_file = url_for('static',filename='profile_pics/' + current_user.image_file)
-    return render_template('account.html',title='Account',
-                            image_file=image_file,form=form,posts=posts)
+    return render_template('account.html',title='Account', image_file=image_file,form=form, posts=posts)
 
 @app.route("/post/new",methods=['GET','POST'])
 @login_required
@@ -140,11 +143,15 @@ def delete_post(post_id):
 
 @app.route("/<username>")
 def user_page(username):
+    page = request.args.get('page',1,type=int)#type int will raise ValueError if sb enters not int
+    if not current_user.is_authenticated:
+        flash('You have to be logged in to see users\' details!','danger')
+        return redirect(url_for('home'))
     if current_user.username == username:
         return redirect(url_for('account'))
-    user = User.query.filter_by(username=username).first()
+    user = User.query.filter_by(username=username).first_or_404()
     if user:
-        posts = Post.query.filter_by(author=user).all()
+        posts = Post.query.filter_by(author=user).order_by(Post.date_posted.desc()).paginate()
         image_file = url_for('static',filename='profile_pics/' + user.image_file)
         return render_template('user.html',title=username + ' Home Page',user=user,posts=posts,image_file=image_file)
     flash('Specified user can not be found!','danger')

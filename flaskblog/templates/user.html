@@ -4,14 +4,19 @@
     <form action="" enctype="multipart/form-data">
         <fieldset class="form-group container">
             <legend class="border-bottom mb-4 text-center">Account Info</legend>
-                <img class="rounded-circle account-img mx-auto d-block" src="{{image_file}}" alt="default.jpg">
+            <img class="rounded-circle account-img mx-auto d-block" src="{{image_file}}" alt="default.jpg">
             <div>
-                <a href="#"><h2 class="text-primary text-center">{{ user.username }}</h2></a>
+                <a href="#">
+                    <h2 class="text-primary text-center">{{ user.username }}</h2>
+                </a>
                 <p class="text-muted text-center">{{user.email}}</p>
             </div>
         </fieldset>
     </form>
-    {% if posts %} {% for post in posts %}
+    <div>
+        <h3 class="text-muted text-center">{{user.username}}'s Posts ({{posts.total}})</h3>
+    </div>
+    {% if posts %} {% for post in posts.items %}
     <article class="media content-section">
         <div class="media-body">
             <div class="article-metadata">
