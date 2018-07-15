@@ -23,8 +23,8 @@ file_handler = logging.FileHandler(PATH)
 #Kreiranje formata za logger
 formatter = logging.Formatter("%(asctime)s:%(levelname)s - %(message)s")
 file_handler.setFormatter(formatter)
-#Podesvanje nivoa logovanja
-file_handler.setLevel(logging.INFO)
+# Podesvanje nivoa logovanja za hendler
+# file_handler.setLevel(logging.INFO)
 #Dodavanje hendlera
 logger.addHandler(file_handler)
 

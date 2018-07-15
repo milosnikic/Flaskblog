@@ -17,14 +17,15 @@ PATH = '/home/milos/Desktop/python_projects/Flask/flaskblog/logs/init.log'
 
 #Kreiranje loggera
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 #Kreiranje FileHandlera za logger
 file_handler = logging.FileHandler(PATH)
 #Kreiranje formata za logger
 formatter = logging.Formatter("%(asctime)s - %(message)s")
 file_handler.setFormatter(formatter)
+file_handler.setLevel(logging.CRITICAL)
 #Dodavanje hendlera
 logger.addHandler(file_handler)
+
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -38,15 +39,15 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     #Prebacili smo sve u klasu Config kako bismo lakse mogli da pravimo instance i za testiranje
     app.config.from_object(Config)
-    logging.info("App is created.")
+    logger.critical("App is created.")
 
     db.init_app(app)
-    logging.info("Database is initialized.")
+    logger.critical("Database is initialized.")
     bcrypt.init_app(app)
     login_manager.init_app(app)
-    logging.info("Login manager is initialized.")
+    logger.critical("Login manager is initialized.")
     mail.init_app(app)
-    logging.info("Mail is initialized.")
+    logger.critical("Mail is initialized.")
 
     from flaskblog.users.routes import users #users je ime promenljive instance klase Blueprint
     from flaskblog.posts.routes import posts
@@ -54,12 +55,12 @@ def create_app(config_class=Config):
     from flaskblog.errors.handlers import errors
 
     app.register_blueprint(users)
-    logging.info("Users blueprint created.")
+    logger.critical("Users blueprint created.")
     app.register_blueprint(posts)
-    logging.info("Posts blueprint created.")
+    logger.critical("Posts blueprint created.")
     app.register_blueprint(main)
-    logging.info("Main blueprint created.")
+    logger.critical("Main blueprint created.")
     app.register_blueprint(errors)
-    logging.info("Errors blueprint created.")
+    logger.critical("Errors blueprint created.")
 
     return app
