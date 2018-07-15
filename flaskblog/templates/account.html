@@ -1,7 +1,7 @@
 {% extends "layout.html" %} {% block content %}
 <div class="content-section">
   <div class="media">
-    <a href="{{url_for('account')}}">
+    <a href="{{url_for('users.account')}}">
       <img class="rounded-circle account-img" src="{{image_file}}">
     </a>
     <div class="media-body">
@@ -58,14 +58,14 @@
         <small class="text-muted">{{ post.date_posted.strftime('%d-%m-%Y') }}</small>
       </div>
       <h2>
-        <a class="article-title" href="{{ url_for('post',post_id=post.id) }}">{{ post.title }}</a>
+        <a class="article-title" href="{{ url_for('posts.post',post_id=post.id) }}">{{ post.title }}</a>
       </h2>
       <p class="article-content">{{ post.content }}</p>
     </div>
   </article>
   {% endfor %} {% else %}
   <h2>You don't have created posts yet.
-    <a class="btn btn-outline-primary btn-sm m-1 float-right" href="{{url_for('new_post')}}">Create New?</a>
+    <a class="btn btn-outline-primary btn-sm m-1 float-right" href="{{url_for('posts.new_post')}}">Create New?</a>
   </h2>
 
   {% endif %}

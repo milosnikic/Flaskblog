@@ -23,7 +23,7 @@
                 <small class="text-muted m-1">{{ post.date_posted.strftime('%d-%m-%Y') }}</small>
             </div>
             <h2>
-                <a class="article-title text-info" href="{{ url_for('post',post_id=post.id) }}">{{ post.title }}</a>
+                <a class="article-title text-info" href="{{ url_for('posts.post',post_id=post.id) }}">{{ post.title }}</a>
             </h2>
             <p class="article-content">{{ post.content }}</p>
         </div>

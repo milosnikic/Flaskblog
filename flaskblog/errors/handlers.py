@@ -8,7 +8,7 @@ import logging
 #
 
 #Kreiranje putanje za cuvanje logga
-PATH = '/home/milos/Desktop/python_projects/Flask/flaskblog/logg/errors.log'
+PATH = '/home/milos/Desktop/python_projects/Flask/flaskblog/logs/errors.log'
 
 #Kreiranje loggera
 logger = logging.getLogger(__name__)

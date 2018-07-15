@@ -13,7 +13,7 @@ import logging
 #
 
 #Kreiranje putanje za cuvanje logga
-PATH = '/home/milos/Desktop/python_projects/Flask/flaskblog/logg/posts.log'
+PATH = '/home/milos/Desktop/python_projects/Flask/flaskblog/logs/posts.log'
 
 #Kreiranje loggera
 logger = logging.getLogger(__name__)

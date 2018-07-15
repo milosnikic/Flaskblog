@@ -1,0 +1,4 @@
+2018-07-15 13:40:36,569:CRITICAL - [User('exr1g','milos.nikic@gmail.com')] has tried to DELETE User('miki96','miki96@gmail.com')'s post
+2018-07-15 13:46:52,434:CRITICAL - [User('exr1g','milos.nikic@gmail.com')] has tried to DELETE User('miki96','miki96@gmail.com')'s post
+2018-07-15 13:46:55,321:CRITICAL - [User('exr1g','milos.nikic@gmail.com')] has tried to UPDATE User('miki96','miki96@gmail.com')'s post
+2018-07-15 13:47:04,045:INFO - [User('exr1g','milos.nikic@gmail.com')] has CREATED post successfully
